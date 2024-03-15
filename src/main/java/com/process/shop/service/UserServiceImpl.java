@@ -1,9 +1,11 @@
 package com.process.shop.service;
 
 import com.process.shop.model.User;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class UserServiceImpl implements UserService{
     @Override
     public User createUser(User user) {
@@ -17,6 +19,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User getUser(Long id) {
+
         return new User();
     }
 
