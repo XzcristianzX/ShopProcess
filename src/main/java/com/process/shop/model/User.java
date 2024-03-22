@@ -1,25 +1,27 @@
 package com.process.shop.model;
 
 import com.process.shop.model.enunm.DocumentType;
-import lombok.AccessLevel;
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 
-import java.lang.annotation.Annotation;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDate;
 
 @Data
 @Builder
+@Entity
 public class User{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String fullName;
-    private Date birthDay;
     private DocumentType ccType;
     private String cc;
+    private LocalDate birthDay;
     private String phoneNumber;
     private String email;
     private String password;
-    private List<Address> address;
+    //private List<Address> address;
 
 
 }
