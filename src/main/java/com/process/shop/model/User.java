@@ -2,13 +2,12 @@ package com.process.shop.model;
 
 import com.process.shop.model.enunm.DocumentType;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDate;
 
 @Data
-@Builder
+@NoArgsConstructor
 @Entity
 public class User{
     @Id
