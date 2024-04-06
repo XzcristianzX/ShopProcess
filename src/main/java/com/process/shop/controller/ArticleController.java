@@ -33,4 +33,8 @@ public class ArticleController {
     public Article updateArticle(@RequestBody Article article, @PathVariable Long id) {
         return articleService.updateArticle(article, id);
     }
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable Long id) {
+        articleService.deleteArticle(id);
+    }
 }

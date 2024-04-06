@@ -18,11 +18,11 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public Article createArticle(Article article) {
-        // Verificar si la categoría ya tiene algún artículo asociado
+        /*// Verificar si la categoría ya tiene algún artículo asociado
         if (article.getCategory() != null && article.getCategory().getArticles() != null
                 && !article.getCategory().getArticles().isEmpty()) {
             throw new RuntimeException("La categoría ya tiene un artículo asociado. Solo se permite un artículo por categoría.");
-        }
+        }*/
         return articleRepository.save(article);
     }
 
@@ -38,8 +38,20 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Article updateArticle(Article article, Long id) {
-        // Implementar la actualización del artículo
-        return article;
+    public Article updateArticle(Article articleUpdated, Long id) {
+        Optional<Article> articleBd = articleRepository.findById(id);
+        if (articleBd.isEmpty()) {
+            return null; // Usuario no encontrado, puedes manejarlo como desees
+        }
+        Article existingCategory = articleBd.get();
+        existingCategory.setName(articleUpdated.getName());
+        existingCategory.setDescription(articleUpdated.getDescription());
+        existingCategory.setPrice(articleUpdated.getPrice());
+        return articleRepository.save(existingCategory);
     }
+    @Override
+    public void deleteArticle(Long id) {
+        articleRepository.deleteById(id);
+    }
+
 }

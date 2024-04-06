@@ -1,6 +1,7 @@
 package com.process.shop.model;
 
 // Article.java
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,7 @@ public class Article {
     private double price;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    @JoinColumn(referencedColumnName = "id")
+    @JsonBackReference
     private Category category;
 }

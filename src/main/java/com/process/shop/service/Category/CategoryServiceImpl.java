@@ -2,6 +2,7 @@ package com.process.shop.service.Category;
 
 // CategoryServiceImpl.java
 import com.process.shop.model.Category;
+import com.process.shop.model.User;
 import com.process.shop.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,8 +40,18 @@ public class CategoryServiceImpl implements CategoryService {
 
 
     @Override
-    public Category updateCategory(Category category, Long id) {
-        // Implementar la actualización de la categoría
-        return category;
+    public Category updateCategory(Category categoryUpdated, Long id) {
+        Optional<Category> categoryBd = categoryRepository.findById(id);
+        if (categoryBd.isEmpty()) {
+            return null; // Usuario no encontrado, puedes manejarlo como desees
+        }
+        Category existingCategory = categoryBd.get();
+        existingCategory.setName(categoryUpdated.getName());
+        return categoryRepository.save(existingCategory);
+    }
+
+    @Override
+    public void deleteCategory(Long id) {
+        categoryRepository.deleteById(id);
     }
 }

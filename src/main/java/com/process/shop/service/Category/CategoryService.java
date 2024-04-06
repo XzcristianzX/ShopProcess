@@ -13,5 +13,6 @@ public interface CategoryService {
 
     List<Category> getAllCategories();
 
+    void deleteCategory(Long id);
     Category updateCategory(Category category, Long id);
 }

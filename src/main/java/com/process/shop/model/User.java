@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -20,7 +21,9 @@ public class User{
     private String phoneNumber;
     private String email;
     private String password;
-    //private List<Address> address;
+
+    @OneToMany(mappedBy = "user")
+    private List<Address> address;
 
 
 }
