@@ -2,6 +2,8 @@ package com.process.shop.controller;
 
 import com.process.shop.model.User;
 import com.process.shop.service.User.UserService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +19,7 @@ public class UserController {
 
     // Endpoint para crear un nuevo usuario
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<User> createUser(@RequestBody @Valid User user) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(userService.createUser(user));
@@ -33,7 +35,7 @@ public class UserController {
 
     // Endpoint para obtener un usuario por su ID
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+    public ResponseEntity<User> getUserById(@PathVariable @NotNull Long id) {
         return ResponseEntity
                 .ok()
                 .body(userService.getUserById(id));
@@ -42,7 +44,7 @@ public class UserController {
 
     // Endpoint para actualizar un usuario existente
     @PutMapping("/{id}")
-    public ResponseEntity<User>updateUser(@PathVariable Long id, @RequestBody User user) {
+    public ResponseEntity<User>updateUser(@PathVariable Long id, @RequestBody @Valid User user) {
         return ResponseEntity
                 .ok()
                 .body(userService.updateUser(user,id));
