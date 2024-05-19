@@ -1,6 +1,7 @@
 package com.process.shop.controller;
 
 import com.process.shop.model.User;
+import com.process.shop.model.dto.Response;
 import com.process.shop.service.User.UserService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -9,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -19,10 +22,16 @@ public class UserController {
 
     // Endpoint para crear un nuevo usuario
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody @Valid User user) {
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(userService.createUser(user));
+    public ResponseEntity<Response> createUser(@RequestBody @Valid User user) {
+        userService.createUser(user);
+        Response response = Response.builder()
+                .responseMessage(Response.ResponseMessage.builder()
+                        .date(LocalDate.now())
+                        .message(List.of("Usuario creado con éxito"))
+                        .statusCode(HttpStatus.CREATED.value())
+                        .build())
+                .build();
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     // Endpoint para obtener todos los usuarios
@@ -44,10 +53,16 @@ public class UserController {
 
     // Endpoint para actualizar un usuario existente
     @PutMapping("/{id}")
-    public ResponseEntity<User>updateUser(@PathVariable Long id, @RequestBody @Valid User user) {
-        return ResponseEntity
-                .ok()
-                .body(userService.updateUser(user,id));
+    public ResponseEntity<Response> updateUser(@PathVariable Long id, @RequestBody @Valid User user) {
+        userService.updateUser(user, id);
+        Response response = Response.builder()
+                .responseMessage(Response.ResponseMessage.builder()
+                        .date(LocalDate.now())
+                        .message(List.of("Usuario actualizado con éxito"))
+                        .statusCode(HttpStatus.OK.value())
+                        .build())
+                .build();
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     // Endpoint para eliminar un usuario por su ID

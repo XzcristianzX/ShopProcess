@@ -9,6 +9,7 @@ import java.util.Optional;
 
 public interface UserRepository extends CrudRepository<User,Long> {
     Optional<User> findByEmail(String email);
+    Optional<User> findByCc(String cc);
     List<User> findByBirthDay(LocalDate birthDay);
     //select * from user where email = "?" and id != "?"
     Optional<User> findByEmailAndIdNot(String email, Long id);

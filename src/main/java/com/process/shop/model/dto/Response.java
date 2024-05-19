@@ -9,8 +9,14 @@ import java.util.List;
 @Builder
 @Data
 public class Response {
-    private LocalDate date;
-    private List<String> message;
-    private String statusCode;
+    private ResponseMessage responseMessage;
+
+    @Data
+    @Builder
+    public static class ResponseMessage {
+        private LocalDate date;
+        private List<String> message;
+        private int statusCode;
+    }
 
 }
