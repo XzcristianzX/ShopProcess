@@ -92,4 +92,18 @@ public class CustomExceptionHandler {
                 .build();
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @ExceptionHandler(AuthenticationFailedException.class)
+    public ResponseEntity<Response> handleAuthenticationFailed(MethodArgumentNotValidException ex) {
+        return new ResponseEntity<>(
+                Response.builder()
+                        .responseMessage(Response.ResponseMessage.builder()
+                                .date(LocalDate.now())
+                                .message(List.of(ex.getMessage()))
+                                .statusCode(HttpStatus.FORBIDDEN.value())
+                                .build())
+                        .build(),
+                HttpStatus.FORBIDDEN
+        );
+    }
 }
